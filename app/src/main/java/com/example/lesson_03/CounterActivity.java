@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 public class CounterActivity extends AppCompatActivity {
 
-    private int counter = 0;
+    private Counter counter;
     private TextView textViewCounter;
 
 
@@ -22,18 +21,21 @@ public class CounterActivity extends AppCompatActivity {
         textViewCounter = findViewById(R.id.text_counter);
 
         if (savedInstanceState != null) {
-            counter = savedInstanceState.getInt("counter");
+            counter = savedInstanceState.getParcelable("counter");
 
             Log.d("MainCounter", "onCreate recreate");
 
         } else {
+
+            counter = new Counter();
+
             Log.d("MainCounter", "onCreate create first time!");
         }
 
         showResult();
 
         findViewById(R.id.button_increase).setOnClickListener(view -> {
-            counter++;
+            counter.increase();
 
             showResult();
         });
@@ -47,24 +49,22 @@ public class CounterActivity extends AppCompatActivity {
 
         Log.d("MainCounter", "onRestoreInstanceState");
 
-        counter = savedInstanceState.getInt("counter");
+        counter = savedInstanceState.getParcelable("counter");
 
         showResult();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("counter", counter);
+        outState.putParcelable("counter", counter);
         super.onSaveInstanceState(outState);
 
         Log.d("MainCounter", "onSaveInstanceState");
-
     }
 
     private void showResult() {
-        textViewCounter.setText(String.valueOf(counter));
+        textViewCounter.setText(String.valueOf(counter.getValue()));
     }
-
 
     @Override
     protected void onStart() {

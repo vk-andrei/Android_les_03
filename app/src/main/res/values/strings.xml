@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lesson_03</string>
+    <string name="second_activity">SECOND ACTIVITY</string>
+    <string name="open_second">OPEN SECOND ACTIVITY</string>
+    <string name="increase">increase</string>
+    <string name="text_counter">counter</string>
+    <string name="open_counter">Open Counter Activity</string>
 </resources>
